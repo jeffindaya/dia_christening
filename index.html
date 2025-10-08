@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dia's Baptism Celebration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #f8c8dc;
+            --secondary-color: #a5d8ff;
+            --accent-color: #333;
+            --text-color: #333;
+            --light-text: #666;
+            --white: #fff;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: #f9f6f9;
+            overflow-x: hidden;
+        }
+
+        /* Global christening background layer */
+        .bg-christening-anim {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0; /* stays behind all content */
+            overflow: hidden;
+        }
+
+        .bg-christening-anim .symbol {
+            position: absolute;
+            opacity: 0.18; /* base opacity; each symbol may override inline */
+            font-size: 1.35rem;
+            animation: driftUpBody linear infinite;
+            filter: drop-shadow(0 3px 3px rgba(0,0,0,0.2));
+            text-shadow: 0 0 7px rgba(255,255,255,0.6), 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        @keyframes driftUpBody {
+            0% { transform: translateY(40px) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.12; }
+            100% { transform: translateY(-110vh) translateX(25px) rotate(8deg); opacity: 0; }
+        }
+
+        h1, h2, h3 {
+            font-family: 'Dancing Script', cursive;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 60px 0;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: var(--accent-color);
+        }
+
+        /* Header & Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: end;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: url(./BANNER.jpg) no-repeat center center/cover;
+            color: var(--white);
+            background-position: top 10% center;
+            color: #333;
+            
+          
+
+        }
+
+        .hero-content {
+           
+            z-index: 2;
+            position: relative;
+            padding: 20px;
+          width: 100%;
+            animation: fadeIn 1.5s ease-out;
+           
+
+        }
+
+        .baby-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--white);
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+            animation: gentlePulse 3s infinite ease-in-out;
+        }
+
+        @keyframes gentlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            animation: slideDown 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            
+            animation: slideUp 1s ease-out 0.3s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            z-index: 1;
+            opacity: 0.7;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        .floating-element:nth-child(2n) {
+            animation-duration: 8s;
+            animation-delay: 1s;
+        }
+
+        .floating-element:nth-child(3n) {
+            animation-duration: 10s;
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(5deg); }
+            66% { transform: translateY(10px) rotate(-5deg); }
+        }
+
+        /* Sparkles Animation */
+        .sparkle {
+            position: absolute;
+            background-color: var(--white);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            animation: sparkle 3s linear infinite;
+        }
+
+        @keyframes sparkle {
+            0% {
+                transform: translate(0, 0) rotate(0deg) scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) rotate(360deg) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Gentle Bubbles */
+        .bubble {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            bottom: -100px;
+            animation: rise 15s infinite ease-in;
+        }
+
+        @keyframes rise {
+            0% {
+                transform: translateY(0) translateX(0) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(20px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Christening-themed floating symbols */
+        .christening-anim {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .christening-anim .symbol {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0.18;
+            animation: driftUp linear infinite;
+            filter: drop-shadow(0 3px 3px rgba(0,0,0,0.15));
+            text-shadow: 0 0 6px rgba(255,255,255,0.6), 0 2px 3px rgba(0,0,0,0.15);
+        }
+
+        @keyframes driftUp {
+            0% { transform: translateY(20px) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.12; }
+            100% { transform: translateY(-110vh) translateX(20px) rotate(10deg); opacity: 0; }
+        }
+
+        /* Generic per-section animation layer */
+        .section-anim {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .section-anim .symbol {
+            position: absolute;
+            font-size: 1.2rem;
+            opacity: 0.16;
+            animation: driftUp linear infinite;
+            filter: drop-shadow(0 3px 3px rgba(0,0,0,0.12));
+            text-shadow: 0 0 6px rgba(255,255,255,0.55), 0 2px 3px rgba(0,0,0,0.12);
+        }
+
+        /* Event Details */
+        .event-details {
+            background-color: var(--white);
+        }
+
+        .details-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .detail-card {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 25px;
+            width: 300px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .detail-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .detail-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .detail-card i {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .detail-card:hover i {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .detail-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .detail-card p {
+            color: var(--light-text);
+        }
+
+        .map-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .map-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .map-link:hover::after {
+            width: 100%;
+        }
+
+        /* Venue & Reception Section */
+        .venue-reception {
+    background: #fff;
+    padding: 80px 20px;
+    text-align: center;
+  }
+  
+  .section-title {
+    font-size: 2.2rem;
+    margin-bottom: 50px;
+    color: #333;
+    font-weight: 600;
+  }
+  
+  .venue-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    justify-content: center;
+  }
+  
+  .venue-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    padding: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .venue-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  }
+  
+  .venue-card i {
+    font-size: 2.5rem;
+    color: #6b4ce6;
+    margin-bottom: 15px;
+  }
+  
+  .venue-card h3 {
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 1.5rem;
+  }
+  
+  .venue-card p {
+    margin: 4px 0;
+    color: #555;
+  }
+  
+  .map-link {
+    display: inline-block;
+    margin: 15px 0;
+    color: #6b4ce6;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .map-link:hover {
+    text-decoration: underline;
+  }
+  
+  .map-frame {
+    margin-top: 10px;
+    border-radius: 15px;
+    overflow: hidden;
+  }
+  
+  .map-frame iframe {
+    width: 100%;
+    height: 220px;
+    border: none;
+  }
+  
+  @media (max-width: 768px) {
+    .venue-reception {
+      padding: 50px 15px;
+    }
+    .section-title {
+      font-size: 1.8rem;
+    }
+  }
+  
+
+        /* Dress Code Section */
+        .dress-code {
+      text-align: center;
+      padding: 80px 10%;
+      background-color: #FADADD; /* Pastel Pink */
+      color: #3a2c25;
+    }
+  
+    .dress-code h2 {
+  
+      margin-bottom: 20px;
+      color: #3a2c25;
+      letter-spacing: 1px;
+    }
+  
+    .dress-code p {
+      
+      margin: 0 auto;
+     
+      color: #5b4b43;
+      line-height: 1.6;
+    }
+
+        /* Dress code image responsiveness */
+        .dress-container img.dresscode-img {
+          width: 50%;
+          max-width: 100%;
+          height: auto;
+        }
+  
+    .color-palette {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+    }
+  
+    .color-card {
+      width: 130px;
+      height: 130px;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+  
+    .color-card:hover {
+      transform: translateY(-5px);
+    }
+  
+    .color-card span {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+  
+    /* Brand colors */
+    .pink { background-color: #FADADD; }
+    .white { background-color: #FAFAFA; border: 1px solid #ddd; }
+    .mint { background-color: #D8F3DC; }
+    .gold { background-color: #F6E6B4; }
+    .taupe { background-color: #E8DAD1; }
+  
+    @media (max-width: 600px) {
+      .color-card {
+        width: 100px;
+        height: 100px;
+      }
+      .dress-container img.dresscode-img {
+        width: 100%;
+      }
+    }
+
+        /* Godparents Section */
+        .godparents {
+            background-color: #f9f6f9;
+            text-align: center;
+        }
+
+        .godparents-slider {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin: 30px auto;
+            max-width: 1000px;
+            height: 350px;
+            background: linear-gradient(135deg, #f8c8dc 0%, #a5d8ff 100%);
+        }
+
+        .godparents-slides {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 100%;
+        }
+
+        .godparents-slide {
+            min-width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .godparent-pair {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 15px;
+            background: var(--white);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            width: 250px;
+            transition: all 0.3s ease;
+        }
+
+        .godparent-pair:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .godparent-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+            border: 3px solid var(--accent-color);
+        }
+
+        .godparent-info {
+            text-align: center;
+        }
+
+        .godparent-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .godparents-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .godparents-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ccc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .godparents-dot.active {
+            background-color: var(--accent-color);
+            transform: scale(1.3);
+        }
+
+        .godparents-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .godparents-arrow:hover {
+            background-color: var(--white);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .godparents-arrow.left {
+            left: 15px;
+        }
+
+        .godparents-arrow.right {
+            right: 15px;
+        }
+
+        /* RSVP Section */
+        .rsvp {
+            background-color: var(--white);
+            text-align: center;
+        }
+
+        .rsvp-form {
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease;
+        }
+
+        .rsvp-form.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(195, 155, 211, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--white);
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: all 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            background-color: #a98bbb;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        /* Photo Gallery */
+        .gallery {
+            background-color: var(--white);
+        }
+
+        .slider {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease;
+        }
+
+        .slider.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .slide {
+            min-width: 100%;
+            transition: all 0.5s ease;
+        }
+
+        .slide img {
+            width: 100%;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .slide:hover img {
+            transform: scale(1.02);
+        }
+
+        .slider-nav {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slider-dot:hover {
+            transform: scale(1.3);
+        }
+
+        .slider-dot.active {
+            background-color: var(--white);
+            transform: scale(1.3);
+        }
+
+      
+
+        /* Closing Message */
+        .closing {
+            background-color: #f9f6f9;
+            text-align: center;
+        }
+
+        .closing-container {
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease;
+        }
+
+        .closing-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .contact-info {
+            margin-top: 30px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-color);
+            color: var(--white);
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        /* Music Player */
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .music-player:hover {
+            transform: scale(1.1) rotate(10deg);
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .music-player i {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            transition: all 0.3s ease;
+        }
+
+        .music-player:hover i {
+            transform: scale(1.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .detail-card {
+                width: 100%;
+            }
+            
+            .countdown-item {
+                min-width: 70px;
+                padding: 15px;
+            }
+            
+            .countdown-number {
+                font-size: 2rem;
+            }
+            
+            .godparent-pair {
+                width: 100%;
+                margin-bottom: 15px;
+            }
+            
+            .dress-slider, .godparents-slider {
+                height: auto;
+                min-height: 400px;
+            }
+            
+            .dress-image {
+                width: 150px;
+                height: 200px;
+            }
+            
+            .dress-arrow, .godparents-arrow {
+                width: 30px;
+                height: 30px;
+            }
+        }
+        </style>
+        <style>
+    :root {
+      --blue: #4f8cff;
+      --pink: #ff80ab;
+      --bg: #f9fafc;
+      --card-bg: #fff;
+      --text: #333;
+    }
+    
+    #godparents h2 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      color: #222;
+    }
+    
+    #godparents p.subtitle {
+      color: #666;
+      margin-bottom: 2.5rem;
+      font-size: 1.1rem;
+    }
+    
+    #godparents h3 {
+      font-size: 2rem;
+      margin: 3rem 0 1.5rem;
+      position: relative;
+    }
+    
+    #godparents h3.ninong-title {
+      color: var(--blue);
+    }
+    
+    #godparents h3.ninang-title {
+      color: var(--pink);
+    }
+    
+    #godparents h3::after {
+      content: "";
+      display: block;
+      width: 60px;
+      height: 4px;
+      border-radius: 2px;
+      margin: 0.5rem auto 0;
+    }
+    
+    #godparents .ninong-title::after {
+      background: var(--blue);
+    }
+    
+    #godparents .ninang-title::after {
+      background: var(--pink);
+    }
+    
+    .slider-container {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    
+    .slider-track {
+      display: flex;
+      transition: transform 0.6s ease;
+    }
+    
+    .card {
+      flex: 0 0 200px;
+      background: var(--card-bg);
+      border-radius: 1.2rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin: 0 0.75rem;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .card img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 0.75rem;
+      border: 3px solid #eee;
+    }
+    
+    .card span {
+      font-weight: 500;
+      display: block;
+      font-size: 1rem;
+    }
+    
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      font-size: 1.5rem;
+      transition: background 0.2s;
+    }
+    
+    .slider-btn:hover {
+      background: #fff;
+    }
+    
+    .slider-btn.prev {
+      left: 10px;
+    }
+    
+    .slider-btn.next {
+      right: 10px;
+    }
+    
+    @media (max-width: 768px) {
+      .card {
+        flex: 0 0 160px;
+      }
+    
+      #godparents h2 {
+        font-size: 2rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .card {
+        flex: 0 0 140px;
+        padding: 1rem;
+      }
+    
+      .card img {
+        width: 70px;
+        height: 70px;
+      }
+    
+      #godparents h2 {
+        font-size: 1.8rem;
+      }
+    
+      #godparents p.subtitle {
+        font-size: 1rem;
+      }
+    }
+    </style>
+</head>
+<body>
+    <!-- Global christening-themed background animation layer -->
+    <div class="bg-christening-anim" id="bgChristeningAnim"></div>
+    <!-- Header / Hero Section -->
+    <header class="hero" id="hero">
+        <div class="hero-content">
+          
+            <h1>Dia Felize</h1>
+            <p>Join us for the baptism of our little angel</p>
+            <p>Saturday, October 18th, 2025</p>
+        </div>
+        
+        <!-- Floating elements -->
+        <div class="floating-element" style="top: 20%; left: 10%; font-size: 4rem;">🌸</div>
+        <div class="floating-element" style="top: 30%; right: 15%; font-size: 3.8rem;">✨</div>
+        <div class="floating-element" style="bottom: 40%; left: 15%; font-size: 4.2rem;">🕊️</div>
+        <div class="floating-element" style="bottom: 30%; right: 10%; font-size: 2.5rem;">💕</div>
+        <!-- Christening themed animation layer -->
+        <div class="christening-anim" id="christeningAnim"></div>
+    </header>
+
+    
+
+    <!-- Venue & Reception Section -->
+    <section class="venue-reception" id="venue">
+        <div class="container">
+          <h2 class="section-title">Venue & Reception</h2>
+          <div class="venue-container">
+            
+            <!-- Baptism Ceremony -->
+            <div class="venue-card">
+              <i class="fas fa-church"></i>
+              <h3>Baptism Ceremony</h3>
+              <p class="venue-name">St. Jude  Parish Church</p>
+              <p class="venue-address">Lapu-Lapu St, Legazpi Port District</p>
+              <p class="venue-time" ><strong>10:00 AM</strong></p>
+              <a href="https://maps.app.goo.gl/e5Yj3URwv1ZENtrS7" class="map-link" target="_blank">View Church on Map</a>
+              <div class="map-frame">
+               <iframe src="https://www.google.com/maps/embed?pb=!3m2!1sen!2sph!4v1759825633893!5m2!1sen!2sph!6m8!1m7!1s9XilRbIwRjaoP5rYXZlxkA!2m2!1d13.14547503862865!2d123.7535879590694!3f81.39786894667986!4f1.2038042495051684!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              </div>
+            </div>
+      
+            <!-- Reception -->
+            <div class="venue-card">
+              <i class="fas fa-glass-cheers"></i>
+              <h3>Reception</h3>
+              <p class="venue-name">Makoy's Catering Service and Function Hall </p>
+              <p class="venue-address">Imelda Roces Ave, Legazpi City</p>
+              <p class="venue-time"><strong>10:30 AM onwards</strong></p>
+              <a href="https://maps.app.goo.gl/S4MgFarD3cxgJBj7A" class="map-link" target="_blank">View Reception on Map</a>
+              <div class="map-frame">
+                <iframe src="https://www.google.com/maps/embed?pb=!3m2!1sen!2sph!4v1759827459483!5m2!1sen!2sph!6m8!1m7!1sNY6Pm9WIHIdsJz9kq9bLPg!2m2!1d13.15061460518739!2d123.7430519927997!3f276.1058!4f0!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              </div>
+            </div>
+      
+          </div>
+        </div>
+        <div class="section-anim" id="anim-venue"></div>
+      </section>
+
+    <!-- Dress Code Section -->
+    <section class="dress-code" id="dresscode">
+        <div class="container">
+            <h2 class="section-title">Dress Code Inspiration</h2>
+            <div class="dress-container">
+               <p>We’d love everyone to come in any light color or pastel to keep the celebration bright and joyful.</p>
+                      <div>
+                        <img class="dresscode-img" src="./dresscode.png" alt="">
+                      </div>
+                
+                      <p>
+       
+                        <strong> Special Request for Ninang and Ninong:</strong>
+                                We kindly ask our ninang and ninong to come in modest and comfortable attire, ninang in church-appropriate outfits and ninong in pants, as required by the church. Thank you for your reverence on this special day.
+                            </p>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="section-anim" id="anim-dress"></div>
+    </section>
+
+   <!-- Godparents Section -->
+   <section id="godparents" style="padding:4rem 1rem;text-align:center; background:linear-gradient(to bottom right,#f9f9ff,#fdfdfd);color:#333;">
+
+    <h2>Ninong & Ninang</h2>
+      <p class="subtitle">With love and guidance from our beloved godparents</p>
+    
+      <!-- Ninong Slider -->
+      <h3 class="ninong-title">Ninong</h3>
+      <div class="slider-container" id="slider-ninong">
+        <button class="slider-btn prev">&#10094;</button>
+        <div class="slider-track">
+          <div class="card"><img src="./godparents/Toj.png" alt=""><span>Angelo </span></div>
+          <div class="card"><img src="./godparents/B2.png" alt=""><span>Ben</span></div>
+          <div class="card"><img src="./godparents/carlu.png" alt=""><span>Carlo </span></div>
+          <div class="card"><img src="./godparents/pacheco.png" alt=""><span>Cristo Ray </span></div>
+          <div class="card"><img src="./godparents/Darryll.png" alt=""><span>Darryl  </span></div>
+          <div class="card"><img src="./godparents/Ace.png" alt=""><span>Jazmar  </span></div>
+          <div class="card"><img src="./godparents/terio.png" alt=""><span>Jester </span></div>
+          <div class="card"><img src="./godparents/Markie.png" alt=""><span>Mark Anthony </span></div>
+          <div class="card"><img src="./godparents/Yan.png" alt=""><span>Rey Angelo </span></div>
+          <div class="card"><img src="./godparents/Chardie.png" alt=""><span>Richard </span></div>
+          <div class="card"><img src="./godparents/roy.png" alt=""><span>Roy </span></div>
+          <div class="card"><img src="./godparents/Rommel.png" alt=""><span>Rommel </span></div>
+          <div class="card"><img src="./godparents/Shanti.png" alt=""><span>Shanti </span></div>
+          <div class="card"><img src="./godparents/Sedrick.png" alt=""><span>Sedrick </span></div>
+          <div class="card"><img src="./bilog.jpg" alt=""><span>Jerson</span></div>
+        </div>
+        <button class="slider-btn next">&#10095;</button>
+      </div>
+    
+      <!-- Ninang Slider -->
+      <h3 class="ninang-title">Ninang</h3>
+      <div class="slider-container" id="slider-ninang">
+        <button class="slider-btn prev">&#10094;</button>
+        <div class="slider-track">
+          <div class="card"><img src="./godparents/alej.png" alt=""><span>Alej  </span></div>
+          <div class="card"><img src="./godparents/Ali.png" alt=""><span>Alyssa </span></div>
+          <div class="card"><img src="./godparents/niki.png" alt=""><span>Cathleen </span></div>
+          <div class="card"><img src="./godparents/Crizziel.png" alt=""><span>Crizziel </span></div>
+          <div class="card"><img src="./godparents/Ina.png" alt=""><span>Ina Beatrix </span></div>
+          <div class="card"><img src="./godparents/feb.png" alt=""><span>Feby Jane </span></div>
+          <div class="card"><img src="./godparents/jazz.png" alt=""><span>Jazzie </span></div>
+          <div class="card"><img src="./godparents/jeck.png" alt=""><span>Jerica Jesna </span></div>
+          <div class="card"><img src="./godparents/Kha.png" alt=""><span>Karen Grace </span></div>
+          <div class="card"><img src="./godparents/KC.png" alt=""><span>Krisha Camille </span></div>
+          <div class="card"><img src="./godparents/krizy.png" alt=""><span>Krizel </span></div>
+          <div class="card"><img src="./godparents/mae.png" alt=""><span>Mae </span></div>
+          <div class="card"><img src="./godparents/sarah.png" alt=""><span>Sarah </span></div>
+          <div class="card"><img src="./godparents/Mamey.png" alt=""><span>Sharmane </span></div>
+          <div class="card"><img src="./godparents/Swit.png" alt=""><span>Switzel </span></div>
+          <div class="card"><img src="./godparents/Mitch.png" alt=""><span>Wechelle </span></div>
+        </div>
+        <button class="slider-btn next">&#10095;</button>
+      </div>
+    
+    <div class="section-anim" id="anim-godparents"></div>
+    </section>
+            </div>
+        </div>
+
+
+    
+
+    <!-- RSVP Section -->
+    <section class="rsvp" id="rsvp">
+        <div class="container">
+            <h2 class="section-title">RSVP</h2>
+            <p><strong>Kindly respond by October 10, 2025 </strong> </p>
+            <form class="rsvp-form">
+                <div class="form-group">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                </div>
+                
+                <div class="form-group">
+                    <input type="number" name="guests" placeholder="Number of Guests" min="1" max="3" required>
+                </div>
+                <div class="form-group">
+                    <select name="attending" required>
+                        <option value="" disabled selected>Will you attend the church ceremony?</option>
+                        <option value="yes">Yes, I'll be there!</option>
+                        <option value="no">Sorry, can't make it</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    
+                    <select id="attending_reception" name="attending_reception" required>
+                        <option value="" disabled selected>Will you attend the reception after the christening?</option>
+                        <option value="Yes, I’d love to attend the reception after the christening.">Yes, I’d love to attend the reception after the christening.</option>
+                        <option value="No, I’m sorry, I won’t be able to attend the reception after the christening.">No, I’m sorry, I won’t be able to attend the reception after the christening.</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <textarea name="message" placeholder="" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn">Submit Response</button> <br><br>
+            <p style="font-size: 12px;"><i>💖We have lovingly kept this celebration intimate, reserved for our closest family and friends. Unless otherwise noted, this invitation is meant especially for those addressed. We are deeply grateful for your kind understanding.</i></p>
+
+            </form>
+        </div>
+        <div class="section-anim" id="anim-rsvp"></div>
+    </section>
+
+    <!-- Photo Gallery -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+           
+            <div class="slider">
+                <div class="slides">
+                    <div class="slide">
+                        <img src="./DSC_1612.jpg" alt="Newborn Dia">
+                    </div>
+                    <div class="slide">
+                        <img src="./DSC_1618.jpg" alt="Family Photo">
+                    </div>
+                    <div class="slide">
+                        <img src="./DSC_1619.jpg" alt="First Smile">
+                    </div>
+                    <div class="slide">
+                        <img src="./DSC_1639.jpg" alt="With Parents">
+                    </div>
+                </div>
+                <div class="slider-nav">
+                    <div class="slider-dot active"></div>
+                    <div class="slider-dot"></div>
+                    <div class="slider-dot"></div>
+                    <div class="slider-dot"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="section-anim" id="anim-gallery"></div>
+
+    <!-- Closing Message -->
+    <section class="closing" id="closing">
+        <div class="container">
+            <h2 class="section-title">A Special Thank You</h2>
+            <div class="closing-container">
+                <p>We’re so happy to share this special moment with the people we love most. Having you with us means so much, and we’re truly grateful that you’re here to celebrate Dia’s baptism.
+
+                  Today isn’t just about welcoming her into the Christian faith — it’s also about the love, guidance, and support she’ll receive from all of you as she grows.
+                  </p>
+                <div class="contact-info">
+                    <p>With love,</p>
+                    <p>The Indaya Family</p>
+                   
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="section-anim" id="anim-closing"></div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>Made with <i class="fas fa-heart" style="color: #f8c8dc;"></i> for Dia's Special Day</p>
+            <p>© 2025 Indaya Family. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Music Player -->
+<div class="music-player" id="musicPlayer" aria-label="Toggle background music">
+    <i class="fas fa-music"></i>
+    <audio id="backgroundMusic" loop>
+      <source src="./Standing on the Promises - piano instrumental hymn with lyrics.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+  
+  <!-- Music notification -->
+  <div class="music-notification" id="musicNotification" style="
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    display: none;
+    z-index: 1000;
+  ">Background music is playing. Click the music note to control.</div>
+
+    <script>
+     // Initialize EmailJS (v4)
+     (function(){
+       emailjs.init({
+         publicKey: 'b10khW3q3vmXO3pol',
+       });
+     })();
+
+     const musicPlayer = document.getElementById('musicPlayer');
+  const backgroundMusic = document.getElementById('backgroundMusic');
+  const musicNotification = document.getElementById('musicNotification');
+  let isPlaying = false;
+  let userInteracted = false;
+
+  // Show notification function
+  function showNotification(message) {
+    musicNotification.textContent = message;
+    musicNotification.style.display = 'block';
+    setTimeout(() => {
+      musicNotification.style.display = 'none';
+    }, 3000);
+  }
+
+  // Initialize music - don't try to autoplay
+  musicPlayer.innerHTML = '<i class="fas fa-music"></i>';
+  showNotification("Click the music note to start background music.");
+
+  // Toggle play/pause on click
+  musicPlayer.addEventListener('click', () => {
+    if (!userInteracted) {
+      // First interaction - try to play
+      backgroundMusic.play()
+        .then(() => {
+          isPlaying = true;
+          userInteracted = true;
+          musicPlayer.innerHTML = '<i class="fas fa-pause"></i>';
+          showNotification("Music is playing.");
+        })
+        .catch(error => {
+          console.error("Playback failed:", error);
+          showNotification("Could not play music. Please interact with the page first.");
+        });
+    } else {
+      // Subsequent interactions - toggle play/pause
+      if (isPlaying) {
+        backgroundMusic.pause();
+        musicPlayer.innerHTML = '<i class="fas fa-music"></i>';
+        showNotification("Music paused. Click to play again.");
+      } else {
+        backgroundMusic.play();
+        musicPlayer.innerHTML = '<i class="fas fa-pause"></i>';
+        showNotification("Music is playing.");
+      }
+      isPlaying = !isPlaying;
+    }
+  });
+       
+        // Removed obsolete dress and legacy godparents slider JS (non-existent elements)
+
+        // Photo Gallery Slider
+        let photoSlideIndex = 0;
+        const photoSlides = document.querySelectorAll('.slide');
+        const photoDots = document.querySelectorAll('.slider-dot');
+
+        function showPhotoSlide(n) {
+            photoSlideIndex = (n + photoSlides.length) % photoSlides.length;
+            document.querySelector('.slides').style.transform = `translateX(-${photoSlideIndex * 100}%)`;
+            
+            photoDots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === photoSlideIndex);
+            });
+        }
+
+        photoDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => showPhotoSlide(index));
+        });
+
+        // Auto slide for photo gallery
+        setInterval(() => {
+            showPhotoSlide(photoSlideIndex + 1);
+        }, 5000);
+
+        // Scroll animations
+        function checkVisibility() {
+            const elements = document.querySelectorAll('.detail-card, .venue-card, .rsvp-form, .slider, .countdown-item, .closing-container');
+            
+            elements.forEach(element => {
+                const position = element.getBoundingClientRect();
+                
+                if(position.top < window.innerHeight - 100) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkVisibility);
+        window.addEventListener('load', checkVisibility);
+
+        // Create floating bubbles
+        function createBubbles() {
+            const hero = document.getElementById('hero');
+            for (let i = 0; i < 15; i++) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+                
+                const size = Math.random() * 30 + 10;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${Math.random() * 100}%`;
+                bubble.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                bubble.style.animationDelay = `${Math.random() * 5}s`;
+                
+                hero.appendChild(bubble);
+            }
+        }
+
+        // Create sparkles
+        function createSparkles() {
+            const hero = document.getElementById('hero');
+            for (let i = 0; i < 20; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.classList.add('sparkle');
+                
+                const size = Math.random() * 8 + 4;
+                sparkle.style.width = `${size}px`;
+                sparkle.style.height = `${size}px`;
+                sparkle.style.left = `${Math.random() * 100}%`;
+                sparkle.style.top = `${Math.random() * 100}%`;
+                sparkle.style.setProperty('--tx', `${Math.random() * 100 - 50}px`);
+                sparkle.style.setProperty('--ty', `${Math.random() * 100 - 50}px`);
+                sparkle.style.animationDelay = `${Math.random() * 3}s`;
+                
+                hero.appendChild(sparkle);
+            }
+        }
+
+        // Initialize effects
+        createBubbles();
+        createSparkles();
+
+        // Christening themed symbols (dove, cross, droplet)
+        (function createChristeningSymbols() {
+            const layer = document.getElementById('christeningAnim');
+            if (!layer) return;
+            const symbols = ['🕊️','✝️','💧'];
+            const total = 16;
+            for (let i = 0; i < total; i++) {
+                const el = document.createElement('div');
+                el.className = 'symbol';
+                el.textContent = symbols[i % symbols.length];
+                const left = Math.random() * 100;
+                const size = Math.random() * 1.2 + 0.8; // 0.8x to 2.0x
+                const duration = Math.random() * 10 + 16; // 16s - 26s
+                const delay = Math.random() * 8; // 0 - 8s
+                el.style.left = `${left}%`;
+                el.style.bottom = `-40px`;
+                el.style.fontSize = `${size}rem`;
+                el.style.animationDuration = `${duration}s`;
+                el.style.animationDelay = `${delay}s`;
+                layer.appendChild(el);
+            }
+        })();
+
+        // Global body background symbols
+        (function createGlobalChristeningSymbols() {
+            const layer = document.getElementById('bgChristeningAnim');
+            if (!layer) return;
+            const symbols = ['🕊️','✝️','💧'];
+            const total = 44; // increase density
+            for (let i = 0; i < total; i++) {
+                const el = document.createElement('div');
+                el.className = 'symbol';
+                el.textContent = symbols[i % symbols.length];
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const size = Math.random() * 1.4 + 0.9; // 0.9rem - 2.3rem
+                const duration = Math.random() * 16 + 20; // 20s - 36s
+                const delay = Math.random() * 10; // 0 - 10s
+                const op = Math.random() * 0.18 + 0.10; // 0.10 - 0.28
+                el.style.left = `${left}%`;
+                el.style.top = `${top}%`;
+                el.style.fontSize = `${size}rem`;
+                el.style.animationDuration = `${duration}s`;
+                el.style.animationDelay = `${delay}s`;
+                el.style.opacity = op.toString();
+                layer.appendChild(el);
+            }
+        })();
+
+        // Helper to create per-section animations with custom symbol sets
+        function createSectionSymbols(layerId, symbols, total) {
+            const layer = document.getElementById(layerId);
+            if (!layer) return;
+            const count = total || 18;
+            for (let i = 0; i < count; i++) {
+                const el = document.createElement('div');
+                el.className = 'symbol';
+                el.textContent = symbols[i % symbols.length];
+                const left = Math.random() * 100;
+                const bottom = -20 - Math.random() * 60;
+                const size = Math.random() * 1.1 + 0.8;
+                const duration = Math.random() * 10 + 18;
+                const delay = Math.random() * 8;
+                const op = Math.random() * 0.18 + 0.08;
+                el.style.left = `${left}%`;
+                el.style.bottom = `${bottom}px`;
+                el.style.fontSize = `${size}rem`;
+                el.style.animationDuration = `${duration}s`;
+                el.style.animationDelay = `${delay}s`;
+                el.style.opacity = op.toString();
+                layer.appendChild(el);
+            }
+        }
+
+        // Initialize per-section backgrounds
+        createSectionSymbols('anim-venue', ['✝️','🕊️','💧'], 20);
+        createSectionSymbols('anim-dress', ['💐','💧','🕊️'], 16);
+        createSectionSymbols('anim-godparents', ['💖','🕊️','✝️'], 18);
+        createSectionSymbols('anim-rsvp', ['✉️','💧','🕊️'], 14);
+        createSectionSymbols('anim-gallery', ['📷','🕊️','💧'], 14);
+        createSectionSymbols('anim-closing', ['🕊️','✝️','💐'], 16);
+
+        // Form submission - send via EmailJS (replace placeholders below)
+        (function() {
+            const form = document.querySelector('.rsvp-form');
+            if (!form) return;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const SERVICE_ID = 'service_4pfr89n';
+            const TEMPLATE_ID = 'template_wgxu499';
+            const TO_EMAIL = 'indayajeff516@example.com'; // Set your destination email or configure in EmailJS template
+
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const nameVal = (form.querySelector('input[name="name"]').value || '').trim();
+                const emailVal = '';
+                const guestsVal = (form.querySelector('input[name="guests"]').value || '').toString();
+                const attendingVal = (form.querySelector('select[name="attending"]').value || '').toString();
+                const attendingReceptionVal = (form.querySelector('select[name="attending_reception"]').value || '').toString();
+                const messageVal = (form.querySelector('textarea[name="message"]').value || '').trim();
+
+                const payload = {
+                    name: nameVal,
+                    email: emailVal,
+                    guests: guestsVal,
+                    attending: attendingVal,
+                    attending_reception: attendingReceptionVal,
+                    message: messageVal || '-',
+                    submittedAt: new Date().toISOString(),
+                    reply_to: emailVal,
+                    to_email: TO_EMAIL
+                };
+
+                try {
+                    if (submitBtn) {
+                        submitBtn.disabled = true;
+                        submitBtn.textContent = 'Sending...';
+                    }
+
+                    if (!window.emailjs) throw new Error('EmailJS SDK not loaded');
+                    await emailjs.send(SERVICE_ID, TEMPLATE_ID, payload);
+
+                    alert('Thank you for your RSVP! Your response has been sent.');
+                    form.reset();
+                } catch (err) {
+                    console.error('RSVP submit error:', err);
+                    const detail = (err && (err.text || err.message)) ? `\nDetails: ${err.text || err.message}` : '';
+                    alert(`Sorry, there was a problem sending your RSVP. Please try again later.${detail}`);
+                } finally {
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Submit Response';
+                    }
+                }
+            });
+        })();
+
+        function createSlider(containerId) {
+      const container = document.getElementById(containerId);
+      const track = container.querySelector('.slider-track');
+      const prevBtn = container.querySelector('.prev');
+      const nextBtn = container.querySelector('.next');
+      const cards = track.querySelectorAll('.card');
+      const cardWidth = cards[0].offsetWidth + 24;
+      let index = 0;
+
+      function moveSlider() {
+        track.style.transform = `translateX(-${index * cardWidth}px)`;
+      }
+
+      nextBtn.addEventListener('click', () => {
+        index = Math.min(index + 1, cards.length - 4);
+        moveSlider();
+      });
+
+      prevBtn.addEventListener('click', () => {
+        index = Math.max(index - 1, 0);
+        moveSlider();
+      });
+
+      let autoSlide = setInterval(() => {
+        index = (index + 1) % (cards.length - 3);
+        moveSlider();
+      }, 3000);
+
+      container.addEventListener('mouseenter', () => clearInterval(autoSlide));
+      container.addEventListener('mouseleave', () => {
+        autoSlide = setInterval(() => {
+          index = (index + 1) % (cards.length - 3);
+          moveSlider();
+        }, 3000);
+      });
+    }
+
+    createSlider('slider-ninong');
+    createSlider('slider-ninang');
+        
+    </script>
+
+
+
+
+</body>
+</html>
+
